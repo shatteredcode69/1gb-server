@@ -1,0 +1,20 @@
+[Unit]
+Description=1GB Server - Flask Monitoring App
+After=network.target
+
+[Service]
+Type=notify
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/1gb-server
+Environment="PATH=/home/ubuntu/1gb-server/venv/bin"
+ExecStart=/home/ubuntu/1gb-server/venv/bin/gunicorn --config gunicorn_config.py main:app
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
