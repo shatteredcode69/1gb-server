@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Real-time monitoring dashboard with live charts and downloadable logs">
+    <title>Dashboard - 1GB Server</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="dashboard-body">
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="nav-brand">üöÄ 1GB World!</a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/dashboard" class="nav-link active">Dashboard</a>
+                <a href="/docs" class="nav-link">Docs</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container dashboard">
+        <div class="dashboard-header">
+            <h1>üìä Real-time System Monitor</h1>
+            <div class="status-badge" id="status">
+                <span class="pulse"></span> Loading...
+            </div>
+        </div>
+
+        <div class="metrics-grid">
+            <!-- Host/System RAM -->
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-icon">üß†</span>
+                    <h3>Host Memory Usage</h3>
+                </div>
+                <div class="metric-value" id="memory-value">-- MB</div>
+                <div class="metric-bar">
+                    <div class="metric-bar-fill" id="memory-bar"></div>
+                </div>
+                <div class="metric-info" id="memory-info">Loading...</div>
+            </div>
+
+            <!-- App footprint proof (RSS) -->
+            <div class="metric-card metric-card-proof gold-ticket">
+                <div class="metric-header">
+                    <span class="metric-icon">üß©</span>
+                    <h3>App Footprint (RSS)</h3>
+                </div>
+                <div class="metric-value" id="appmem-value">-- MB</div>
+                <div class="metric-bar">
+                    <div class="metric-bar-fill" id="appmem-bar"></div>
+                </div>
+                <div class="metric-info" id="appmem-info">Target: under 1024 MB</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-icon">‚ö°</span>
+                    <h3>CPU Usage</h3>
+                </div>
+                <div class="metric-value" id="cpu-value">--%</div>
+                <div class="metric-bar">
+                    <div class="metric-bar-fill" id="cpu-bar"></div>
+                </div>
+                <div class="metric-info" id="cpu-info">Loading...</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-icon">üíæ</span>
+                    <h3>Disk Usage</h3>
+                </div>
+                <div class="metric-value" id="disk-value">-- GB</div>
+                <div class="metric-bar">
+                    <div class="metric-bar-fill" id="disk-bar"></div>
+                </div>
+                <div class="metric-info" id="disk-info">Loading...</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-icon">‚è±Ô∏è</span>
+                    <h3>Uptime</h3>
+                </div>
+                <div class="metric-value" id="uptime-value">--</div>
+                <div class="metric-info">System running smoothly</div>
+            </div>
+        </div>
+
+        <!-- 1GB Proof Bar (App memory vs 1GB budget) -->
+        <section class="proof-section gold-ticket" aria-label="1GB RAM Proof">
+            <div class="proof-header">
+                <h2>‚úÖ 1GB RAM Proof (App Budget)</h2>
+                <div class="proof-pill" id="proof-pill">Checking‚Ä¶</div>
+            </div>
+
+            <div class="proof-row">
+                <div class="proof-label">App RSS usage vs 1024 MB</div>
+                <div class="proof-meta">
+                    <span id="app-budget-text">-- MB / 1024 MB</span>
+                    <span class="proof-dot">‚Ä¢</span>
+                    <span id="app-headroom-text">Headroom: -- MB</span>
+                </div>
+            </div>
+
+            <div class="proof-bar">
+                <div class="proof-bar-fill" id="app-budget-fill" style="width:0%"></div>
+            </div>
+
+            <p class="proof-note">
+                This “1GB proof” is based on the application’s measured memory footprint (RSS) reported by the backend in real time.
+            </p>
+        </section>
+
+        <div class="charts-grid">
+            <div class="chart-section">
+                <h2>üìà Performance Trends</h2>
+                <div class="chart-container">
+                    <canvas id="metricsChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-section">
+                <h2>ü•ß Memory Distribution</h2>
+                <div class="chart-container">
+                    <canvas id="memoryPieChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="logs-section">
+            <div class="logs-header">
+                <h2>üìú Live System Logs</h2>
+                <button onclick="downloadLogs()" class="btn btn-primary">‚¨áÔ∏è Download Logs</button>
+            </div>
+            <div class="logs-terminal" id="logs-terminal">
+                <div class="log-entry info">[INFO] Connecting to backend logs...</div>
+            </div>
+        </div>
+
+        <div class="system-info">
+            <h2>üñ•Ô∏è System Information</h2>
+            <div id="system-details" class="info-grid">
+                Loading system information...
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/navbar.js') }}"></script>
+</body>
+</html>
