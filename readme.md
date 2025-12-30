@@ -9,5 +9,6 @@ Clear App Footprint (RSS) reporting (the Python process memory in MB), separate 
 Why the “1GB” claim is credible (even if I developed on an 8GB machine):
 the dashboard and health API expose the app’s own measured memory footprint (RSS) in real time  . The host may have more RAM available, but the application’s actual footprint is what determines whether it can run on a 1GB VPS.
 
+Kindly run it in .venv for better results 
 
 #DevOps #CloudComputing #Python #Monitoring #SystemDesign #ResourceOptimization
